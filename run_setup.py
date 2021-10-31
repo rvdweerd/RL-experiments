@@ -1,6 +1,7 @@
 from environments import \
     LavaWorld5x7Determ, LavaWorld5x7StochMovement, LavaWorld5x7StochRewards,\
-    CliffWorld4x12Determ
+    CliffWorld4x12Determ,\
+    MazeWorld5x7Determ
     
 from policy import EpsilonGreedyPolicy, EpsilonGreedyPolicy_Double_Q
 from q_learning import q_learning, double_q_learning
@@ -26,6 +27,8 @@ def run_setup(config, q_learning_variant):
         env = LavaWorld5x7StochRewards()
     elif env == "CliffWorld4x12Determ":
         env = CliffWorld4x12Determ()
+    elif env == "MazeWorld5x7Determ":
+        env = MazeWorld5x7Determ()
 
     else:
         raise NotImplementedError

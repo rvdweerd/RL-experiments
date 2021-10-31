@@ -28,6 +28,7 @@ class BaseGrid(gym.Env):
         final_reward,
         lava_cells=[],
         cliff_cells=[],
+        wall_cells=[],
         p_forward=1.,
         stoch_reward=False,
     ):
@@ -40,6 +41,7 @@ class BaseGrid(gym.Env):
         self.final_reward = final_reward
         self.lava_cells = lava_cells
         self.cliff_cells = cliff_cells
+        self.wall_cells = wall_cells
         self.p_forward = p_forward
         self.stoch_reward = stoch_reward
 
@@ -58,7 +60,9 @@ class BaseGrid(gym.Env):
         return state[0] * self.cols + state[1]
 
     def get_state_color(self, state_number):
-        if state_number in []:
+        if state_number in [self.observation(cell) for cell in self.wall_cells]:
+            return "black"  # wall
+        if state_number in [self.observation(cell) for cell in self.cliff_cells]:
             return "grey"  # cliff
         elif state_number in [self.observation(cell) for cell in self.lava_cells]:
             return "orange"  # lava
@@ -115,6 +119,8 @@ class BaseGrid(gym.Env):
                     if new_loc in self.cliff_cells:
                         reward = -100
                         new_loc = self.start
+                    if new_loc in self.wall_cells:
+                        new_loc = [r,c]
                     if new_loc == self.goal:
                         reward = self.final_reward
                         done = True
@@ -223,3 +229,23 @@ class CliffWorld4x12Determ(BaseGrid):
             p_forward=1,
             stoch_reward=False,
         )
+
+class MazeWorld5x7Determ(BaseGrid):
+    """"""
+
+    def __init__(self):
+        super().__init__(
+            nS=5*7,
+            nA=4,
+            rows=5,
+            cols=7,
+            start=[0, 0],
+            goal=[4, 6],
+            final_reward=22,
+            lava_cells=[[1,2]],
+            cliff_cells=[[1,5]],
+            wall_cells=[[3,1],[3,2],[3,3],[3,4],[3,5],[3,6],[1,0],[1,1],[1,3],[1,4]],
+            p_forward=1,
+            stoch_reward=False,
+        )
+

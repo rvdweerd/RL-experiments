@@ -30,7 +30,10 @@ def SavePlot(vanilla_Q_learning, double_Q_learning, metric_names, name, dirname,
         else:
             plt.plot(xs, ys, label="vanilla")
             plt.fill_between(xs, lower_std, upper_std, alpha=0.4)
-            plt.ylim((-100,20))
+            if metric_name == 'episode_returns':
+                plt.ylim((-100,50))
+            elif metric_name == 'episode_lengths':
+                plt.ylim((0,100))
 
         # double
         num_iter = config['num_iter']
@@ -145,6 +148,7 @@ def SavePlot(vanilla_Q_learning, double_Q_learning, metric_names, name, dirname,
     plt.plot(metrics_double_avgperstep, label="double")
     plt.ylabel("Average return per step")
     plt.xlabel("Episode")
+    plt.ylim((-2, 1))
     plt.legend()
     plt.savefig(dirname + '/' + name + '_' + 'avgperstep.png')
     plt.clf()

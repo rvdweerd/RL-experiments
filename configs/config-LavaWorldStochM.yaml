@@ -1,6 +1,6 @@
-name: "LavaWorld5x7DDeterm"
+name: "LavaWorld5x7StochMovement"
 seeds: 1 # THIS SHOULD BE THE NUMBER OF SEEDS, NOT THE LIST WITH SEEDS!
-env: "LavaWorld5x7Determ" #"LavaWorld13x15Determ" # "LavaWorld13x15StochMovement" # 
+env: "LavaWorld5x7StochMovement" #"LavaWorld13x15Determ" # "LavaWorld13x15StochMovement" # 
 policy: "EpsilonGreedy" # ["EpsilonGreedy"]
 epsilon_0: 0.1      # starting value of epsilon eps_0
 epsilon_decay: 0.9  # this is parameter beta in eps = eps_0 / n(s)^beta. If beta = 0 we have a fixed epsilon

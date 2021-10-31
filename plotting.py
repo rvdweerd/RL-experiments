@@ -63,7 +63,8 @@ def SavePlot(vanilla_Q_learning, double_Q_learning, metric_names, name, dirname,
     
     # Vanilla
     V_table = np.max(Q_table, axis=1).reshape(rows, cols)
-    plt.imshow(V_table[::-1][:], vmin=vmin, vmax=vmax)
+    #plt.imshow(V_table[::-1][:], vmin=vmin, vmax=vmax, cmap='seismic_r')
+    plt.imshow(V_table[::-1][:], vmin=vmin, vmax=vmax, cmap='PiYG')
     plt.title("State values after training Vanilla Q-learning")
     plt.colorbar()
     plt.savefig(dirname + "/" + name + "_" + "V_table_heatmap_vanilla" + ".png")
@@ -74,7 +75,7 @@ def SavePlot(vanilla_Q_learning, double_Q_learning, metric_names, name, dirname,
     Q2 = Q_tables_double["Q2"]
     Q_double = (Q1 + Q2) / 2
     V_table = np.max(Q_double, axis=1).reshape(rows, cols)
-    plt.imshow(V_table[::-1][:], vmin=vmin, vmax=vmax)
+    plt.imshow(V_table[::-1][:], vmin=vmin, vmax=vmax, cmap='PiYG')
     plt.title("State values after training Double Q-learning")
     plt.colorbar()
     plt.savefig(dirname + "/" + name + "_" + "V_table_heatmap_double" + ".png")
